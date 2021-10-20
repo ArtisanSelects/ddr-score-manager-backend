@@ -14,6 +14,6 @@ app.use(express.json({limit: '16mb'}));
 app.use(cookieParser());
 app.use(requireAuth);
 app.use("/api/v1/scores", routes);
-app.use("*", (req, res) => res.status(404));
+app.use("*", (req, res) => res.status(404).send("Page not found."));
 
 export default app;
