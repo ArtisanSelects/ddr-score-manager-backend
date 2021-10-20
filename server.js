@@ -9,9 +9,7 @@ import requireAuth from "./api/authMiddleware.js";
 const app = express();
 app.use(helmet());
 app.use(compression());
-app.use(cors({
-    origin: "https://ddr-score-manager.netlify.app/"
-}));
+app.use(cors());
 app.use(express.json({limit: '16mb'}));
 app.use(cookieParser());
 app.use(requireAuth);
