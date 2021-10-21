@@ -32,7 +32,7 @@ export default class UserAuthController {
                 try {
                     const user = await User.login(username, password);
                     const token = createJWT(user._id);
-                    res.cookie('jwt', token, { httpOnly: true, maxAge: jwtExpirationMS });
+                    res.cookie('jwt', token, { httpOnly: true, secure: true, maxAge: jwtExpirationMS });
                     res.status(200).json({ user: user._id });
                 } catch (e) {
                     res.status(400).send([{msg: e.message}]);
@@ -63,7 +63,7 @@ export default class UserAuthController {
                 try {
                     const user = await User.create({ username: req.body.username, password: req.body.password });
                     const token = createJWT(user._id);
-                    res.cookie('jwt', token, { httpOnly: true, maxAge: jwtExpirationMS });
+                    res.cookie('jwt', token, { httpOnly: true, secure: true, maxAge: jwtExpirationMS });
                     res.status(201).json({ user: user._id });
                 }
                 catch (err) {
@@ -74,7 +74,7 @@ export default class UserAuthController {
     ];
 
     static async logout_post(req, res) {
-        res.cookie('jwt', '', { maxAge: 1 });
+        res.cookie('jwt', '', { httpOnly: true, secure: true, maxAge: 1 });
         res.status(200).json({ status: 'success' });
     }
 
