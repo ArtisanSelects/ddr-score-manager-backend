@@ -46,7 +46,7 @@ export default class SongsController {
         body('chartDifficulty').trim().escape().isLength({ min: 1 }).isIn(["Beginner", "Basic", "Difficult", "Expert", "Challenge"]).withMessage("Chart difficulty is invalid."),
         body('difficultyRank').trim().escape().isInt({ min: 0 }).withMessage('Difficulty rank is invalid').toInt(),
         body('chartMode').trim().escape().isLength({ min: 1 }).isIn(["Single", "Double"]).withMessage("Chart mode is invalid."),
-        body('appearance').trim().escape().isLength({ min: 1 }).isIn(['1st Mix', '2nd Mix', '3rd Mix', '4th Mix', '5th Mix', 'MAX', 'MAX2', 'EXTREME', 'SuperNOVA', 'SuperNOVA2', 'DDR X', 'DDR X2', 'DDR X3', 'DDR 2013', 'DDR 2014', 'DDR A', 'DDR A20', 'DDR A20 PLUS', 'Other']).withMessage("Song's appearance is invalid."),
+        body('appearance').trim().escape().isLength({ min: 1 }).isIn(['1st Mix', '2nd Mix', '3rd Mix', '4th Mix', '5th Mix', 'MAX', 'MAX2', 'EXTREME', 'SuperNOVA', 'SuperNOVA2', 'DDR X', 'DDR X2', 'DDR X3', 'DDR 2013', 'DDR 2014', 'DDR A', 'DDR A20', 'DDR A20 PLUS', 'DDR A3', 'Other']).withMessage("Song's appearance is invalid."),
         check('songJacket').custom((value, {req}) => {
             try {
                 const utf8 = Buffer.from(value, 'utf8');
@@ -80,6 +80,7 @@ export default class SongsController {
             try {
                 const existingSong = await Song.findOne({  'title': req.body.title,
                                                             'artist': req.body.artist,
+                                                            'difficulty': req.body.difficulty,
                                                             'chartDifficulty': req.body.chartDifficulty,
                                                             'chartMode': req.body.chartMode,
                                                             'appearance': req.body.appearance,
@@ -104,7 +105,7 @@ export default class SongsController {
         body('chartDifficulty').trim().escape().isLength({ min: 1 }).isIn(["Beginner", "Basic", "Difficult", "Expert", "Challenge"]).withMessage("Chart difficulty is invalid."),
         body('difficultyRank').trim().escape().isInt({ min: 0 }).withMessage('Difficulty rank is invalid').toInt(),
         body('chartMode').trim().escape().isLength({ min: 1 }).isIn(["Single", "Double"]).withMessage("Chart mode is invalid."),
-        body('appearance').trim().escape().isLength({ min: 1 }).isIn(['1st Mix', '2nd Mix', '3rd Mix', '4th Mix', '5th Mix', 'MAX', 'MAX2', 'EXTREME', 'SuperNOVA', 'SuperNOVA2', 'DDR X', 'DDR X2', 'DDR X3', 'DDR 2013', 'DDR 2014', 'DDR A', 'DDR A20', 'DDR A20 PLUS', 'Other']).withMessage("Song's appearance is invalid."),
+        body('appearance').trim().escape().isLength({ min: 1 }).isIn(['1st Mix', '2nd Mix', '3rd Mix', '4th Mix', '5th Mix', 'MAX', 'MAX2', 'EXTREME', 'SuperNOVA', 'SuperNOVA2', 'DDR X', 'DDR X2', 'DDR X3', 'DDR 2013', 'DDR 2014', 'DDR A', 'DDR A20', 'DDR A20 PLUS', 'DDR A3', 'Other']).withMessage("Song's appearance is invalid."),
         body('maxCombo').trim().escape().isInt({ min: 1 }).withMessage("Max combo is invalid.").toInt(),
         body('freezeArrowCount').trim().escape().isInt({ min: 0 }).withMessage('Freeze arrow count is invalid.').toInt(),
         body('shockArrowCount').trim().escape().isInt({ min: 0 }).withMessage('Shock arrow count is invalid.').toInt(),
